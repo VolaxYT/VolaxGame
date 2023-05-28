@@ -1,29 +1,37 @@
 package fr.volax;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+import fr.volax.data.Player;
+import fr.volax.screens.MainMenuScreen;
 
-public class VolaxGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-	}
+public class VolaxGame extends Game {
+    public int width, height;
+    public SpriteBatch batch;
+    public BitmapFont fontMainMenu;
+    public BitmapFont fontGame;
 
-	@Override
-	public void render () {
-		ScreenUtils.clear(255, 255, 255, 1);
-		batch.begin();
+    public VolaxGame(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
 
-		batch.end();
-	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-	}
+    public void create() {
+        batch = new SpriteBatch();
+        fontMainMenu = new BitmapFont();
+        fontGame = new BitmapFont();
+        fontMainMenu.getData().setScale(3);
+        fontGame.getData().setScale(2);
+        this.setScreen(new MainMenuScreen(this, new Player()));
+    }
+
+    public void render() {
+        super.render();
+    }
+
+    public void dispose() {
+        batch.dispose();
+        fontMainMenu.dispose();
+    }
 }
